@@ -1,0 +1,106 @@
+ [Serializable]
+    public abstract class IpcMessage
+    {
+        [JsonProperty(Order = -2)]
+        public MessageType Type { get; }
+        public IpcMessage(MessageType type)
+        {
+            this.Type = type;
+        }
+    }
+
+    [Serializable]
+    public class LivelyMessageConsole : IpcMessage
+    {
+        public string Message { get; set; }
+        public ConsoleMessageType Category { get; set; }
+        public LivelyMessageConsole() : base(MessageType.msg_console)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyMessageHwnd : IpcMessage
+    {
+        public long Hwnd { get; set; }
+        public LivelyMessageHwnd() : base(MessageType.msg_hwnd)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyMessageScreenshot : IpcMessage
+    {
+        public string FileName { get; set; }
+        public bool Success { get; set; }
+        public LivelyMessageScreenshot() : base(MessageType.msg_screenshot)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyMessageWallpaperLoaded : IpcMessage
+    {
+        public bool Success { get; set; }
+        public LivelyMessageWallpaperLoaded() : base(MessageType.msg_wploaded)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyCloseCmd : IpcMessage
+    {
+        public LivelyCloseCmd() : base(MessageType.cmd_close)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyReloadCmd : IpcMessage
+    {
+        public LivelyReloadCmd() : base(MessageType.cmd_reload)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyScreenshotCmd : IpcMessage
+    {
+        public ScreenshotFormat Format { get; set; }
+        public string FilePath { get; set; }
+        public uint Delay { get; set; }
+        public LivelyScreenshotCmd() : base(MessageType.cmd_screenshot)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelySuspendCmd : IpcMessage
+    {
+        public LivelySuspendCmd() : base(MessageType.cmd_suspend)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyResumeCmd : IpcMessage
+    {
+        public LivelyResumeCmd() : base(MessageType.cmd_resume)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelyVolumeCmd : IpcMessage
+    {
+        public int Volume { get; set; }
+        public LivelyVolumeCmd() : base(MessageType.cmd_volume)
+        {
+        }
+    }
+
+    [Serializable]
+    public class LivelySystemInformation : IpcMessage
+    {
+        public HardwareUsageEventArgs Info { get; set; }
+        public LivelySystemInformation() : base(MessageType.cmd_reload)
